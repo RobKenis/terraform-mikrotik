@@ -1,4 +1,4 @@
-# Settings
+# System Settings
 variable "hostname" {
   type        = string
   description = "The hostname (system identity) to set on the Mikrotik device."
@@ -30,4 +30,22 @@ variable "ntp_mode" {
     condition     = contains(["unicast", "broadcast", "multicast", "manycast"], var.ntp_mode)
     error_message = "NTP mode must be one of: unicast, broadcast, multicast, manycast."
   }
+}
+
+# Bride Settings
+
+variable "bridge_name" {
+  type        = string
+  default     = "bridge"
+  description = "Name of the main bridge interface."
+}
+
+# Interface Configuration
+variable "ethernet_interfaces" {
+  type = map(object({
+    comment     = optional(string, "")
+    bridge_port = optional(bool, true)
+  }))
+  default     = {}
+  description = "Map of ethernet interfaces to configure. Keys are interface names (e.g., 'ether1'). Supports bridge membership and VLAN tagging."
 }
