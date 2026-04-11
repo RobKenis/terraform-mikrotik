@@ -5,10 +5,3 @@ resource "routeros_ip_dhcp_client" "this" {
   use_peer_dns      = true
   use_peer_ntp      = true
 }
-
-resource "routeros_ip_firewall_nat" "allow_internet" {
-  action        = "masquerade"
-  chain         = "srcnat"
-  out_interface = var.interface
-  comment       = "Allow devices connected to ${var.interface} to access the internet via DHCP client"
-}
