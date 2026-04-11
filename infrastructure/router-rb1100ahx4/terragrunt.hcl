@@ -10,3 +10,8 @@ include "provider" {
 terraform {
   source = "../../modules/base"
 }
+
+inputs = {
+  hostname = upper(split("-", basename(get_terragrunt_dir()))[1])
+  timezone = "Europe/Brussels"
+}
