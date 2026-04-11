@@ -12,6 +12,6 @@ inputs = {
   network     = "10.0.0.0/24"
   gateway     = "10.0.0.1"
   dhcp_pool   = ["10.0.0.195-10.0.0.199"]
-  lease_time  = "12h"
+  lease_time  = "4h"
   dns_servers = ["9.9.9.9", "149.112.112.112"]
 }
