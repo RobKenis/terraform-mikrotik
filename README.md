@@ -6,7 +6,7 @@ Credits to <https://github.com/mirceanton/mikrotik-terraform> for the inspiratio
 
 ## IP Ranges
 
-- Management: 10.0.0.1/24
+- Management: 10.0.0.0/24
 - DHCP Networks (192.168.96.0/20):
   - Guest: 192.168.96.0/24
   - Trusted: 192.168.97.0/24
