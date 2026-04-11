@@ -1,0 +1,18 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Everything needed to bootstrap a Terraform environment"
+Resources:
+  StateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketNamePrefix: terraform-mikrotik-state
+      BucketNamespace: account-regional
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Project
+          Value: terraform-mikrotik
+Outputs:
+  StateBucketName:
+    Description: Name of the S3 bucket used to store Terraform state
+    Value: !Ref StateBucket
