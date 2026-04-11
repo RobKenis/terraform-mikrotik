@@ -45,6 +45,10 @@ variable "ethernet_interfaces" {
   type = map(object({
     comment     = optional(string, "")
     bridge_port = optional(bool, true)
+    # Trunk ports
+    tagged = optional(list(string))
+    # Access ports
+    untagged = optional(string)
   }))
   default     = {}
   description = "Map of ethernet interfaces to configure. Keys are interface names (e.g., 'ether1'). Supports bridge membership and VLAN tagging."

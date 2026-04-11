@@ -1,5 +1,5 @@
 locals {
-  mikrotik_hostname = "172.16.0.1"
+  mikrotik_hostname = "10.0.0.1"
 }
 
 generate "provider" {
