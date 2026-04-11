@@ -1,0 +1,12 @@
+---
+version: '3'
+
+includes:
+  tg: .taskfiles/terragrunt.yaml
+  lint: .taskfiles/lint.yaml
+
+tasks:
+  default:
+    desc: List all tasks
+    silent: true
+    cmd: go-task --list-all

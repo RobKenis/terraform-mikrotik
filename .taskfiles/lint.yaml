@@ -1,0 +1,12 @@
+---
+version: '3'
+
+tasks:
+  terragrunt: 
+    desc: Lint all HCL and Terraform files
+    cmds:
+      - terragrunt hcl format
+  default:
+    desc: Run all linters
+    cmds:
+      - task: terragrunt

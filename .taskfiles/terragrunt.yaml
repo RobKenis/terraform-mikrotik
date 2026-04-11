@@ -1,0 +1,12 @@
+---
+version: '3'
+
+tasks:
+  plan:
+    desc: Plan Terragrunt
+    cmds:
+      - terragrunt run --all -- plan
+  apply:
+    desc: Apply Terragrunt
+    cmds:
+      - terragrunt run --all -- apply
