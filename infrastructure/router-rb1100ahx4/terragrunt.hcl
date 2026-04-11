@@ -15,11 +15,16 @@ inputs = {
   hostname = upper(split("-", basename(get_terragrunt_dir()))[1])
   timezone = "Europe/Brussels"
 
+  vlans = {
+    Management = { name = "Management", vlan_id = 1000 }
+    Trusted    = { name = "Trusted", vlan_id = 1100 }
+  }
+
   ethernet_interfaces = {
-    "ether1"  = { comment = "Telenet Uplink", bridge_port = false }
-    "ether2"  = {}
-    "ether3"  = {}
-    "ether4"  = {}
+    "ether1" = { comment = "Telenet Uplink", bridge_port = false }
+    "ether2" = {}
+    "ether3" = {}
+    # "ether4"  = {}
     "ether5"  = {}
     "ether6"  = {}
     "ether7"  = {}

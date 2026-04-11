@@ -3,10 +3,15 @@ version: '3'
 
 tasks:
   terragrunt: 
-    desc: Lint all HCL and Terraform files
+    desc: Lint all HCL files
     cmds:
       - terragrunt hcl format
+  opentofu:
+    desc: Lint all Terraform files
+    cmds:
+      - tofu fmt -recursive ./
   default:
     desc: Run all linters
     cmds:
       - task: terragrunt
+      - task: opentofu

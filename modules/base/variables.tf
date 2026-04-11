@@ -49,3 +49,22 @@ variable "ethernet_interfaces" {
   default     = {}
   description = "Map of ethernet interfaces to configure. Keys are interface names (e.g., 'ether1'). Supports bridge membership and VLAN tagging."
 }
+
+# VLAN Configuration
+
+variable "vlans" {
+  type = map(object({
+    name    = string
+    vlan_id = number
+    mtu     = optional(number, 1500)
+  }))
+  default     = {}
+  description = "Map of VLANs to configure. Each entry requires a human-readable name and a VLAN ID."
+
+  validation {
+    condition = alltrue([
+      for k, v in var.vlans : v.vlan_id >= 1 && v.vlan_id <= 4094
+    ])
+    error_message = "VLAN IDs must be between 1 and 4094."
+  }
+}

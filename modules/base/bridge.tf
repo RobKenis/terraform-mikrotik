@@ -1,5 +1,5 @@
 resource "routeros_interface_bridge" "bridge" {
-  name           = var.bridge_name
+  name = var.bridge_name
 }
 
 # Add interfaces as bridge members
