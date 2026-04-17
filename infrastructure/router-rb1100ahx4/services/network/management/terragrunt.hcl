@@ -14,4 +14,8 @@ inputs = {
   dhcp_pool   = ["10.0.0.195-10.0.0.199"]
   lease_time  = "4h"
   dns_servers = ["9.9.9.9", "149.112.112.112"]
+
+  static_leases = {
+    "10.0.0.2" = { name = "CSS326", mac = "04:F4:1C:FB:6E:6D" }
+  }
 }

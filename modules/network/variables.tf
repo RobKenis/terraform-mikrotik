@@ -69,3 +69,14 @@ variable "lease_time" {
   type        = string
   default     = null
 }
+
+# Static Leases
+
+variable "static_leases" {
+  description = "Map of static DHCP leases keyed by IP address. Each entry requires 'mac' and 'name'."
+  type = map(object({
+    mac  = string
+    name = string
+  }))
+  default = {}
+}

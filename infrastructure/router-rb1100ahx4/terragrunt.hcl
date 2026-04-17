@@ -23,7 +23,7 @@ inputs = {
 
   ethernet_interfaces = {
     "ether1"  = { comment = "Telenet Uplink", bridge_port = false }
-    "ether2"  = {}
+    "ether2"  = { comment = "CSS326-24G-2S+RM", tagged = ["Management"] }
     "ether3"  = { untagged = "Management" }
     "ether4"  = {}
     "ether5"  = {}

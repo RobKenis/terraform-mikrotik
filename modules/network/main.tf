@@ -24,3 +24,11 @@ resource "routeros_ip_dhcp_server" "this" {
   interface    = var.interface
   lease_time   = var.lease_time
 }
+
+resource "routeros_ip_dhcp_server_lease" "this" {
+  for_each    = var.static_leases
+  server      = routeros_ip_dhcp_server.this.name
+  address     = each.key
+  mac_address = each.value.mac
+  comment     = each.value.name
+}
