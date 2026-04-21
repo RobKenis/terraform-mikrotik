@@ -58,9 +58,10 @@ variable "ethernet_interfaces" {
 
 variable "vlans" {
   type = map(object({
-    name    = string
-    vlan_id = number
-    mtu     = optional(number, 1500)
+    name      = string
+    vlan_id   = number
+    interface = optional(string)
+    mtu       = optional(number, 1500)
   }))
   default     = {}
   description = "Map of VLANs to configure. Each entry requires a human-readable name and a VLAN ID."
