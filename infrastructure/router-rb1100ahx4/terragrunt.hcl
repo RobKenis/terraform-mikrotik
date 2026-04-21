@@ -31,7 +31,7 @@ inputs = {
     "ether7"  = {}
     "ether8"  = {}
     "ether9"  = {}
-    "ether10" = {}
+    "ether10" = { comment = "RBcAPGi", untagged = "Management" }
     "ether11" = {}
     "ether12" = {}
     "ether13" = {}
