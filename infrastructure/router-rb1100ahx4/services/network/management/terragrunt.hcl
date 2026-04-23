@@ -17,6 +17,6 @@ inputs = {
 
   static_leases = {
     "10.0.0.2" = { name = "CSS326", mac = "04:F4:1C:FB:6E:6D" }
-    "10.0.0.5" = { name = "RBcAPGi", mac = "D0:EA:11:44:63:FA" }
+    "10.0.0.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }
   }
 }

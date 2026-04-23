@@ -29,7 +29,7 @@ inputs = {
     "ether5"  = {}
     "ether6"  = {}
     "ether7"  = {}
-    "ether8"  = {}
+    "ether8"  = { comment = "Living Room CAP", untagged = "Management", tagged = ["Trusted", "Guest"] }
     "ether9"  = {}
     "ether10" = {}
     "ether11" = {}
