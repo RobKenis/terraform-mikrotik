@@ -1,7 +1,3 @@
-# =============================================================================
-# CAPsMAN Settings
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_capsman
-# =============================================================================
 resource "routeros_wifi_capsman" "settings" {
   enabled                  = true
   interfaces               = var.capsman_interfaces
@@ -9,9 +5,6 @@ resource "routeros_wifi_capsman" "settings" {
   require_peer_certificate = var.require_peer_certificate
 }
 
-# =============================================================================
-# Locals
-# =============================================================================
 locals {
   # Extract unique bands from wifi_networks
   unique_bands = toset([for k, v in var.wifi_networks : v.band])
@@ -23,21 +16,6 @@ locals {
     "2ghz-n"  = "2.4ghz-n"
     "5ghz-n"  = "5ghz-n"
     "5ghz-ac" = "5ghz-ac"
-  }
-
-  # Create unique datapaths based on vlan_id + client_isolation combination.
-  # Multiple networks sharing the same VLAN and isolation setting reuse
-  # a single datapath resource.
-  unique_datapaths = {
-    for k, v in var.wifi_networks : "${v.vlan_id}-${v.client_isolation}" => {
-      vlan_id          = v.vlan_id
-      client_isolation = v.client_isolation
-    }...
-  }
-
-  # Flatten to get one entry per unique combination
-  datapath_configs = {
-    for key, configs in local.unique_datapaths : key => configs[0]
   }
 
   # Group networks by band for provisioning rules
@@ -59,27 +37,8 @@ locals {
   provisioning_master = {
     for band, networks in local.networks_by_band : band => sort(keys(networks))[0]
   }
-
-  # Networks that need a generated passphrase (none provided by the caller)
-  networks_needing_passphrase = {
-    for k, v in var.wifi_networks : k => v if v.passphrase == null
-  }
-
-  # Resolve final passphrase for each network: use the provided value or
-  # fall back to the randomly generated one.
-  wifi_passphrases = {
-    for k, v in var.wifi_networks : k => (
-      v.passphrase != null ? v.passphrase : random_pet.wifi_passphrase[k].id
-    )
-  }
 }
 
-# =============================================================================
-# WiFi Channels
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_channel
-#
-# Creates one channel resource per unique band used across all wifi_networks.
-# =============================================================================
 resource "routeros_wifi_channel" "this" {
   for_each = local.unique_bands
 
@@ -92,14 +51,8 @@ resource "routeros_wifi_channel" "this" {
   reselect_time     = try(var.channel_settings[each.value].reselect_time, null)
 }
 
-# =============================================================================
-# WiFi Security
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_security
-#
-# Creates a security profile for each WiFi network.
-# =============================================================================
 resource "random_pet" "wifi_passphrase" {
-  for_each = local.networks_needing_passphrase
+  for_each = var.wifi_networks
 
   length    = 4
   separator = "-"
@@ -108,34 +61,20 @@ resource "random_pet" "wifi_passphrase" {
 resource "routeros_wifi_security" "this" {
   for_each = var.wifi_networks
 
-  name                 = "${each.key}-wifi-security"
-  authentication_types = var.authentication_types
-  passphrase           = local.wifi_passphrases[each.key]
+  name                 = each.key
+  authentication_types = ["wpa2-psk", "wpa3-psk"]
+  passphrase           = random_pet.wifi_passphrase[each.key].id
 }
 
-# =============================================================================
-# WiFi Datapath
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_datapath
-#
-# Creates a datapath for each unique VLAN + client_isolation combination.
-# Networks that share the same VLAN and isolation setting reuse one datapath.
-# =============================================================================
+// wifi-qcom-ac does not allow setting vlan_id on the datapath. TODO: By AX Access Points
 resource "routeros_wifi_datapath" "this" {
-  for_each = local.datapath_configs
+  for_each = var.wifi_networks
 
-  name             = "vlan-${each.value.vlan_id}-tagging"
-  comment          = "WiFi -> VLAN ${each.value.vlan_id}"
-  vlan_id          = each.value.vlan_id
+  name             = each.key
+  comment          = each.value.ssid
   client_isolation = each.value.client_isolation
 }
 
-# =============================================================================
-# WiFi Configurations
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_configuration
-#
-# Creates a WiFi configuration for each network, linking its channel,
-# datapath, and security profile together.
-# =============================================================================
 resource "routeros_wifi_configuration" "this" {
   for_each = var.wifi_networks
 
@@ -147,25 +86,13 @@ resource "routeros_wifi_configuration" "this" {
     config = routeros_wifi_channel.this[each.value.band].name
   }
   datapath = {
-    config = routeros_wifi_datapath.this["${each.value.vlan_id}-${each.value.client_isolation}"].name
+    config = routeros_wifi_datapath.this[each.key].name
   }
   security = {
     config = routeros_wifi_security.this[each.key].name
   }
 }
 
-# =============================================================================
-# WiFi Provisioning
-# https://registry.terraform.io/providers/terraform-routeros/routeros/latest/docs/resources/wifi_provisioning
-#
-# Creates one provisioning rule per band. CAPsMAN uses these rules to
-# automatically configure CAP radios that match the supported band.
-#
-# Master/slave pattern:
-#   - Each band has exactly one master configuration (the primary SSID).
-#   - All other SSIDs on the same band are slave configurations (virtual APs).
-#   - The master is chosen alphabetically by network key for determinism.
-# =============================================================================
 resource "routeros_wifi_provisioning" "this" {
   for_each = local.networks_by_band
 

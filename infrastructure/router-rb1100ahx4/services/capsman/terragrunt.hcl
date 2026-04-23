@@ -24,15 +24,8 @@ inputs = {
 
   wifi_networks = {
     home = {
-      ssid             = "Rob en Lieze"
-      band             = "5ghz-ac"
-      vlan_id          = 1100
-    }
-    guest = {
-      ssid             = "Rob en Lieze - Guest"
-      band             = "2ghz-n"
-      vlan_id          = 1200
-      client_isolation = true
+      ssid = "Rob en Lieze"
+      band = "5ghz-ac"
     }
   }
 }
