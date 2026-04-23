@@ -8,7 +8,7 @@ terraform {
 
 inputs = {
   interface   = "Guest"
-  address     = "192.168.96.0/24"
+  address     = "192.168.96.1/24"
   network     = "192.168.96.0/24"
   gateway     = "192.168.96.1"
   dhcp_pool   = ["192.168.96.100-192.168.96.199"]
