@@ -16,7 +16,11 @@ inputs = {
   dns_servers = ["9.9.9.9", "149.112.112.112"]
 
   static_leases = {
+    # Network - Switches
     "10.0.0.2" = { name = "CSS326", mac = "04:F4:1C:FB:6E:6D" }
+    "10.0.0.3" = { name = "hAP AC Lite", mac = "F4:1E:57:7F:CD:1C" }
+
+    # Network - Access Points
     "10.0.0.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }
   }
 }
