@@ -7,22 +7,22 @@ include "provider" {
   expose = true
 }
 
+locals {
+  globals = read_terragrunt_config(find_in_parent_folders("globals.hcl")).locals
+}
+
 terraform {
   source = "../../modules/base"
 }
 
 inputs = {
   hostname = upper(split("-", basename(get_terragrunt_dir()))[1])
-  timezone = "Europe/Brussels"
+  timezone = local.globals.timezone
 
-  vlans = {
-    Management = { name = "Management", vlan_id = 1000 }
-    Trusted    = { name = "Trusted", vlan_id = 1100 }
-    Guest      = { name = "Guest", vlan_id = 1200 }
-  }
+  vlans = local.globals.vlans
 
   ethernet_interfaces = {
-    "ether1" = { comment = "Router Uplink", tagged = ["Management", "Trusted", "Guest"] }
+    "ether1" = { comment = "Router Uplink", tagged = local.globals.all_vlans }
     "ether2" = {}
     "ether3" = { untagged = "Management" }
     "ether4" = { untagged = "Trusted" }
