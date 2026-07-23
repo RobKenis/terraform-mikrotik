@@ -25,13 +25,13 @@ inputs = {
     "ether1"  = { comment = "Telenet Uplink", bridge_port = false }
     "ether2"  = { comment = "CSS326-24G-2S+RM", tagged = local.globals.all_vlans }
     "ether3"  = { untagged = "Management" }
-    "ether4"  = { comment = "hAP AC Lite", tagged = local.globals.all_vlans }
+    "ether4"  = {}
     "ether5"  = {}
-    "ether6"  = {}
-    "ether7"  = {}
+    "ether6"  = { comment = "Office Downlink", tagged = local.globals.all_vlans }
+    "ether7"  = { comment = "Living Room Downlink", untagged = "Trusted" }
     "ether8"  = { comment = "Living Room CAP", untagged = "Trusted" }
-    "ether9"  = {}
-    "ether10" = {}
+    "ether9"  = { comment = "Tower", untagged = "Trusted" }
+    "ether10" = { comment = "Philips Hue Bridge", untagged = "Trusted" }
     "ether11" = {}
     "ether12" = {}
     "ether13" = {}
