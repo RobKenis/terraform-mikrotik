@@ -23,5 +23,9 @@ inputs = {
     "192.168.97.50" = { name = "Sunny Boy", mac = "a0:c9:a0:11:b7:2e" }
     "192.168.97.51" = { name = "P1 Meter", mac = "5c:2f:af:3e:8e:5a" }
     "192.168.97.52" = { name = "iRobot", mac = "50:14:79:87:6a:ff" }
+
+    # Servers
+    "192.168.97.100" = { name = "Tower", mac = "60:cf:84:be:4c:ff" }
+    "192.168.97.101" = { name = "talos-prod-control-plane-0", mac = "1C:69:7A:08:32:00" }
   }
 }
