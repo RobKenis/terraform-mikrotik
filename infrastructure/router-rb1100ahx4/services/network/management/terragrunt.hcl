@@ -22,5 +22,8 @@ inputs = {
 
     # Network - Access Points
     # "10.0.0.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }
+
+    # Servers
+    "10.0.0.100" = { name = "Dumbledork", mac = "B8:27:EB:EB:D2:A8" }
   }
 }
