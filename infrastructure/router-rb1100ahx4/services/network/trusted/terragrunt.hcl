@@ -13,7 +13,7 @@ inputs = {
   gateway     = "192.168.97.1"
   dhcp_pool   = ["192.168.97.100-192.168.97.199"]
   lease_time  = "4h"
-  dns_servers = ["9.9.9.9", "149.112.112.112"]
+  dns_servers = ["10.0.0.100"]
 
   static_leases = {
     # Network - Access Points
