@@ -149,6 +149,14 @@ inputs = {
       order              = 1400
     }
 
+    "allow-GUEST-to-internet" = {
+      chain              = "forward"
+      action             = "accept"
+      in_interface       = local.mikrotik_globals.vlans.Guest.name
+      out_interface_list = "WAN"
+      order              = 1500
+    }
+
     # ========================================================================
     # DEFAULT DENY
     # =========================================================================
