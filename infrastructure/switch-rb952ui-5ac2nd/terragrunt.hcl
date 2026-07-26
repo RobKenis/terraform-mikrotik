@@ -26,6 +26,6 @@ inputs = {
     "ether2" = {}
     "ether3" = { untagged = "Management" }
     "ether4" = { untagged = "Trusted" }
-    "ether5" = { untagged = "Guest" }
+    "ether5" = { untagged = "Management" }
   }
 }
