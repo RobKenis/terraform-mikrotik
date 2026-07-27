@@ -17,7 +17,7 @@ inputs = {
 
   static_leases = {
     # Network - Access Points
-    "192.168.97.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }
+    # "192.168.97.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }
 
     # IoT
     "192.168.97.50" = { name = "Sunny Boy", mac = "a0:c9:a0:11:b7:2e" }
