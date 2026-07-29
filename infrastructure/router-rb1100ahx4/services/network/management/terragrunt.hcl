@@ -18,7 +18,8 @@ inputs = {
   static_leases = {
     # Network - Switches
     "10.0.0.2" = { name = "CSS326", mac = "04:F4:1C:FB:6E:6D" }
-    "10.0.0.3" = { name = "hAP AC Lite", mac = "F4:1E:57:7F:CD:1C" }
+    "10.0.0.3" = { name = "RB952Ui", mac = "F4:1E:57:7F:CD:1C" }
+    "10.0.0.4" = { name = "CSS106", mac = "D0:EA:11:F8:CC:23" }
 
     # Network - Access Points
     # "10.0.0.5" = { name = "Living Room CAP", mac = "D0:EA:11:44:63:FA" }

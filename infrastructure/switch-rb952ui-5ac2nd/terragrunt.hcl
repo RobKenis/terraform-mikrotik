@@ -26,6 +26,6 @@ inputs = {
     "ether2" = {}
     "ether3" = { untagged = "Management" }
     "ether4" = { untagged = "Trusted" }
-    "ether5" = { tagged = ["Trusted", "Guest"], untagged = "Management" }
+    "ether5" = { tagged = local.globals.all_vlans }
   }
 }

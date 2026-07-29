@@ -29,7 +29,7 @@ inputs = {
     "ether5"  = {}
     "ether6"  = { comment = "Office Downlink", tagged = local.globals.all_vlans }
     "ether7"  = { comment = "Living Room Downlink", untagged = "Trusted" }
-    "ether8"  = { }
+    "ether8"  = {}
     "ether9"  = { comment = "Tower", untagged = "Trusted" }
     "ether10" = { comment = "Philips Hue Bridge", untagged = "Trusted" }
     "ether11" = {}
