@@ -23,8 +23,8 @@ inputs = {
 
   ethernet_interfaces = {
     "ether1" = { comment = "Router Uplink", tagged = local.globals.all_vlans }
-    "ether2" = {}
-    "ether3" = { untagged = "Management" }
+    "ether2" = { untagged = "Trusted" }
+    "ether3" = { untagged = "Trusted" }
     "ether4" = { untagged = "Trusted" }
     "ether5" = { tagged = local.globals.all_vlans }
   }
