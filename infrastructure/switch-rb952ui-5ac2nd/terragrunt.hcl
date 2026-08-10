@@ -26,6 +26,6 @@ inputs = {
     "ether2" = { untagged = "Trusted" }
     "ether3" = { untagged = "Trusted" }
     "ether4" = { untagged = "Trusted" }
-    "ether5" = { tagged = local.globals.all_vlans }
+    "ether5" = {}
   }
 }
